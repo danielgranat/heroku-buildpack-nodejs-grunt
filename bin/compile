@@ -101,7 +101,7 @@ fi
   status "Installing dependencies"
   # Make npm output to STDOUT instead of its default STDERR
   npm install --userconfig $build_dir/.npmrc 2>&1 | indent
-  if [ -n "$npm_cmd" ];
+  if [ -n "$npm_cmd" ]; then
     status "running script: npm ${npm_cmd}"
     npm run-script ${npm_cmd} --userconfig $build_dir/.npmrc 2>&1 | indent
   fi
