@@ -96,12 +96,15 @@ fi
 
   export NODE_ENV=development
 
-  npm_cmd=${NPM_RUN_CMD:-'install'}
+  npm_cmd=${NPM_RUN_CMD:-''}
 
   status "Installing dependencies"
-  status "running: npm ${npm_cmd}"
   # Make npm output to STDOUT instead of its default STDERR
-  npm ${npm_cmd} --userconfig $build_dir/.npmrc 2>&1 | indent
+  npm install --userconfig $build_dir/.npmrc 2>&1 | indent
+  if [ -n "$npm_cmd" ];
+    status "running script: npm ${npm_cmd}"
+    npm run-script ${npm_cmd} --userconfig $build_dir/.npmrc 2>&1 | indent
+  fi
 )
 
 # Persist goodies like node-version in the slug
